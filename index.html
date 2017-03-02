@@ -1,0 +1,163 @@
+<html class="wf-iconfont-n4-active wf-active">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="pathname" content="bytecom_tetris">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+    <title>小猪CMS智慧店铺</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap_6229293.css">
+    <link rel="stylesheet" type="text/css" href="css/image_c703bce.css">
+    <link rel="stylesheet" type="text/css" href="css/form_9dc2604.css">
+</head>
+
+<body>
+    <div id="content">
+        <div class="piece image-con" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" data-idx="0">
+            <div class="image-box">
+                <a target="_blank" class="image-link" href="javascript:void(0);">
+                    <img class="image-item" src="images/13f00005e919d6ceb38d">
+                </a>
+                <span class="image-text"></span>
+            </div>
+        </div>
+        <div class="piece image-con" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" data-idx="1">
+            <div class="image-box">
+                <a target="_blank" class="image-link" href="javascript:void(0);">
+                    <img class="image-item" src="images/1191000d9b17a191e52d">
+                </a>
+                <span class="image-text"></span>
+            </div>
+        </div>
+        <div class="piece image-con" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" data-idx="2">
+            <div class="image-box">
+                <a target="_blank" class="image-link" href="javascript:void(0);">
+                    <img class="image-item" src="images/1191000d9b1b27c57c7a">
+                </a>
+                <span class="image-text"></span>
+            </div>
+        </div>
+        <div class="piece image-con" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" data-idx="3">
+            <div class="image-box">
+                <a target="_blank" class="image-link" href="javascript:void(0);">
+                    <img class="image-item" src="images/1191000d9b2323ea2510">
+                </a>
+                <span class="image-text"></span>
+            </div>
+        </div>
+        <div class="piece image-con" style="padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" data-idx="4">
+            <div class="image-box">
+                <a target="_blank" class="image-link" href="javascript:void(0);">
+                    <img class="image-item" src="images/13ef0005139a237fd7dc">
+                </a>
+                <span class="image-text"></span>
+            </div>
+        </div>
+        <div class="piece form-piece" data-idx="6">
+            <div class="form-group-i container-fluid input-style2">
+                <div class="image-box">
+                    <a target="_blank" class="image-link" href="javascript:void(0);">
+                        <img class="image-item" src="images/zhihui6.png">
+                    </a>
+                    <span class="image-text"></span>
+                </div>
+                <div class="inputTxt">
+                    <div class="row">
+                        <div class="input-group-i col-xs-12 col-sm-6 col-md-6 col-lg-6" validate="cellphone">
+                            <input type="number" class="form-control form-input-i" placeholder="您的手机" name="52201230329">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group-i col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                            <div class="el-result" id="submit-result"></div>
+                            <button class="btn-i" id="jsAgentSubmit" type="submit" style="border-radius:4px;height:42px;background-color:rgb(241, 194, 50) !important;color:#fff">免费了解创业机会</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+ <div class="fullBg">
+        请填写正确手机号
+    </div>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script>
+$(function() {
+    var url = window.location.href;
+    var source = url.split("?")[1].split("=")[1];;
+    function fullBgTxt(text) {
+        $('.fullBg').fadeIn('300');
+        $('.fullBg').text(text);
+        setTimeout(function() {
+            $('.fullBg').fadeOut('300');
+        }, 1000)
+    }
+    $(".form-control").focus(function() {
+        $('.container-fluid').css({
+            'position': 'absolute',
+            'bottom': '0'
+        });
+    });
+    $(".form-control").blur(function() {
+        $('.container-fluid').css({
+            'position': 'fixed',
+
+        });
+    });
+
+    function postData() {
+        var agentPhone = $.trim($(".form-control").val());
+        if (!agentPhone.match(/^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/)) {
+            fullBgTxt('请输入正确手机号')
+            $(".form-control").focus();
+            $(".form-control").val('');
+            return false;
+        }
+        if (agentPhone == '') {
+            fullBgTxt('手机号不能为空！');
+            $(".form-control").focus();
+            $(".form-control").val('');
+            return false;
+        }
+        //var data = $('#infoForm').serialize();
+        var agentUrl = 'http://ws.pigcms.com/agentAdd.php?name=客户&company=未知&province=' + source + '&city=智慧店铺&mp=' + agentPhone + '&callback=t';
+        $.ajax({
+            type: "GET",
+            url: agentUrl,
+            dataType: "jsonp",
+            jsonp: "jsoncallback",
+            jsonpCallback: "t",
+            success: function(json) {
+                console.log(json);
+                if (json == '提交过于频繁，请50分钟后再试') {
+                    fullBgTxt("提交过于频繁，请50分钟后再试");
+                    return false;
+                } else {
+                    fullBgTxt('提交成功，我们将尽快与您联系');
+                    $(".form-control").val('');
+                }
+
+            },
+            error: function() {
+
+            }
+
+        });
+    }
+    $("#jsAgentSubmit").on('click', function() {
+        postData()
+    });
+    $(".form-control").bind('keydown', function(event) {
+        var e = event || window.event;
+        if (!e.ctrlKey && e.keyCode == 13) {
+            postData()
+        }
+    });
+
+
+})
+</script>
+
+</html>
